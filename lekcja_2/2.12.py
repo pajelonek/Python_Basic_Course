@@ -1,7 +1,3 @@
-# Zbudować napis stworzony z pierwszych znaków wyrazów z wiersza line.
-# Zbudować napis stworzony z ostatnich znaków wyrazów z wiersza line.
-
-
 def main():
     line = "I\t am\n python"
     string_from_first_letters = ''

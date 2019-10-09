@@ -1,6 +1,3 @@
-# Znaleźć: (a) najdłuższy wyraz, (b) długość najdłuższego wyrazu w napisie line.
-
-
 def main():
     line = "am\t I\n python\tlong_word\ns"
     # Longest word in 'line'
