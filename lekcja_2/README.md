@@ -1,5 +1,7 @@
 # Algorytmy i struktury danych w języku python 
 
+Zestaw 1.
+
 ## Jak uruchomić
 
 Wystarczy pobrać pliki pythonowe i uruchomić w dowolnym środowisku.
