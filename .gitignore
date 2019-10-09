@@ -109,3 +109,4 @@ modules.xml
 profiles_settings.xml
 python.iml
 vcs.xml
+.idea/.gitignore
