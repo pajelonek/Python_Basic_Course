@@ -5,7 +5,7 @@ Zestaw 1.
 ## Jak uruchomić
 
 Wystarczy pobrać pliki pythonowe i uruchomić w dowolnym środowisku.
-
+lecture_3.py zawiera wszystkie zadania oprócz : 3.1, 3.2 i 3.4.
 ## Treści zadań
 ##### ZADANIE 3.1
 Czy podany kod jest poprawny składniowo w Pythonie?
