@@ -37,7 +37,7 @@ def task_4_2(length, x, y):
     print(task_3_6(x, y))
 
 
-def task_4_3(n):
+def factorial(n):
     if n < 0:
         raise NameError('Invalid argument')
     factorial = n
@@ -46,7 +46,7 @@ def task_4_3(n):
     return factorial
 
 
-def task_4_4(n):
+def fibonacci(n):
     if n < 0:
         raise NameError('Invalid argument')
     if n == 0:
@@ -62,7 +62,7 @@ def task_4_4(n):
     return next_n
 
 
-def task_4_5(L, l, r):
+def odwracanie(L, l, r):
     if l < 0 or r > len(L):
         raise NameError('Invalid argument')
     for i in range(l, int((l + r) / 2)):
@@ -70,11 +70,34 @@ def task_4_5(L, l, r):
     print(str(L))
 
 
+def sum_seq(seq):
+    suma = 0
+    if isinstance(seq, (list, tuple)):
+        for i in seq:
+            suma += sum_seq(i)
+    else:
+        suma += seq
+    return suma
+
+
+def flatten(sequence):
+    L = []
+    if isinstance(sequence, (list, tuple)):
+        for i in sequence:
+            for el in flatten(i):
+                L.append(el)
+    else:
+        L.append(sequence)
+    return L
+
+
 def main():
     task_4_2(12, 4, 2)
-    print("4.3: " + str(task_4_3(5)))
-    print("4.4: " + str(task_4_4(6)))
-    task_4_5([1, 2, 3, 4, 5], 1, 5)
+    print("4.3: " + str(factorial(5)))
+    print("4.4: " + str(fibonacci(6)))
+    odwracanie([1, 2, 3, 4, 5], 1, 5)
+    print(sum_seq([1, (2, 3), [], [4, (5, 6, 7)], 8, [9]]))
+    print(flatten([1, (2, 3), [], [4, (5, 6, 7)], 8, [9]]))
 
 
 if __name__ == "__main__":
