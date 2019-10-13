@@ -1,6 +1,6 @@
 # Algorytmy i struktury danych w języku python 
 
-Zestaw 3.
+Zestaw 4.
 
 ## Jak uruchomić
 
