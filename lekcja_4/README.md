@@ -5,7 +5,7 @@ Zestaw 4.
 ## Jak uruchomić
 
 Wystarczy pobrać pliki pythonowe i uruchomić w dowolnym środowisku.
-lecture_3.py zawiera wszystkie zadania oprócz : 3.1, 3.2 i 3.4.
+lecture_4.py zawiera wszystkie zadania
 ## Treści zadań
 #####ZADANIE 4.2
 Rozwiązania zadań 3.5 i 3.6 z poprzedniego zestawu zapisać w postaci funkcji, które zwracają pełny string przez return.

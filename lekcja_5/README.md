@@ -5,7 +5,7 @@ Zestaw 5.
 ## Jak uruchomić
 
 Wystarczy pobrać pliki pythonowe i uruchomić w dowolnym środowisku.
-lecture_3.py zawiera wszystkie zadania oprócz : 3.1, 3.2 i 3.4.
+lecture_5.py zawiera zadanie 5.1
 ## Treści zadań
 ##### ZADANIE 5.1
 Stworzyć plik rekurencja.py i zapisać w nim funkcje z zadań 4.3 (factorial), 4.4 (fibonacci). Sprawdzić operacje importu i przeładowania modułu.

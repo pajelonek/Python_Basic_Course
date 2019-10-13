@@ -110,3 +110,5 @@ profiles_settings.xml
 python.iml
 vcs.xml
 .idea/.gitignore
+/lekcja_3/.idea/lekcja_3.iml
+/lekcja_3/.idea/.gitignore
