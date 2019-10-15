@@ -51,44 +51,6 @@ class TestFrac(unittest.TestCase):
     def test_revert_frac(self):
         self.assertEqual(~Frac(1, 2), Frac(2, 1))
         self.assertEqual(~Frac(-2, 1), Frac(-1, 2))
- #    def __invert__(self):  # odwrotnosc: ~frac
- #        return Frac(self.y, self.x)
-
- #    def __float__(self):
- #        if self.y == 0:
- #            raise NameError("Y cannot be 0")
- #        return float(self.x / self.y)  # float(frac)
-
-
-   # def test_is_positive(self):
-        # self.assertEqual(Frac([1, 2]), True)
-        # self.assertEqual(fracs.is_positive([-1, 2]), False)
-        # self.assertEqual(fracs.is_positive([0, 2]), False)
-        # self.assertEqual(fracs.is_positive([17, 2]), True)
-        # self.assertEqual(fracs.is_positive([-1, -2]), True)
-        # self.assertEqual(fracs.is_positive([2, -1]), False)
-        #
-        # def test_is_zero(self):
-        #     self.assertEqual(fracs.is_zero([0, 2]), True)
-        #     self.assertEqual(fracs.is_zero([1, 2]), False)
-        #     self.assertEqual(fracs.is_zero([0, 0]), True)
-        #     self.assertEqual(fracs.is_zero([2, 0]), False)  # <==== doesn't exist!
-        #
-        # def test_cmp_frac(self):
-        #     self.assertEqual(fracs.cmp_frac([1, 2], [1, 3]), -1)
-        #     self.assertEqual(fracs.cmp_frac([1, 3], [1, 2]), 1)
-        #     self.assertEqual(fracs.cmp_frac([1, 3], [1, 3]), 0)
-        #     self.assertEqual(fracs.cmp_frac([1, 2], [-1, 3]), -1)
-        #     self.assertEqual(fracs.cmp_frac([-1, 2], [1, 3]), 1)
-        #     self.assertEqual(fracs.cmp_frac([0, 2], [1, 3]), 1)
-        #     self.assertEqual(fracs.cmp_frac([0, 2], [-1, 3]), -1)
-        #
-        # def test_frac2float(self):
-        #     self.assertEqual(fracs.frac2float([0, 2]), 0)
-        #     self.assertEqual(fracs.frac2float([2, 2]), 1)
-        #     self.assertEqual(fracs.frac2float([1, 2]), 0.5)
-        #     self.assertEqual(fracs.frac2float([1, 3]), 0.3333333333333333)
-        #     self.assertEqual(fracs.frac2float([7, 2]), 3.5)
 
 
 if __name__ == '__main__':
