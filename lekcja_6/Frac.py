@@ -8,13 +8,14 @@ class Frac:
         if y == 0:
             raise NameError("Y cannot be 0")
 
-        n = math.gcd(x, y)
+        n = math.gcd(int(x), int(y))
         if n != 1 and x != 0:
             self.x = x / n
             self.y = y / n
         else:
             self.x = x
             self.y = y
+        self.normalize()
 
     def __str__(self):  # zwraca "x/y" lub "x" dla y=1
         if self.y == 1:
@@ -26,42 +27,36 @@ class Frac:
 
     def __add__(self, other):  # frac1 + frac2
         if self.y != other.y:
-            self.x = self.x * other.y + other.x * self.y
-            self.y = self.y * other.y
+            x = self.x * other.y + other.x * self.y
+            y = self.y * other.y
         else:
-            self.x = self.x + other.x
-        self.normalize()
-        return self
+            x = self.x + other.x
+            y = self.y
+        return Frac(x, y)
 
     def __sub__(self, other):  # frac1 - frac2
         if self.y != other.y:
-            self.x = self.x * other.y - other.x * self.y
-            self.y = self.y * other.y
+            x = self.x * other.y - other.x * self.y
+            y = self.y * other.y
         else:
-            self.x = self.x - other.x
-        self.normalize()
-        return self
+            x = self.x - other.x
+            y = self.y
+        return Frac(x, y)
 
     def __mul__(self, other):
-        self.normalize()  # frac1 * frac2
-        other.normalize()
-        self.x = self.x * other.x
-        self.y = self.y * other.y
-        self.normalize()
-        return self
+        x = self.x * other.x
+        y = self.y * other.y
+        return Frac(x, y)
 
     def __truediv__(self, other):
-        self.normalize()  # frac1 * frac2
-        other.normalize()
-        self.x = self.x * other.y
-        self.y = self.y * other.x
-        self.normalize()
-        return self  # frac1 / frac2
+        x = self.x * other.y
+        y = self.y * other.x
+        return Frac(x, y)  # frac1 / frac2
 
     # operatory jednoargumentowe
     def __pos__(self):  # +frac = (+1)*frac
-        self.x *= 1
-        return self
+        x = self.x * 1
+        return Frac(x, self.y)
 
     def __neg__(self):  # -frac = (-1)*frac
         return Frac(-self.x, self.y)
