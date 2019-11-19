@@ -15,6 +15,7 @@ class Frac:
         else:
             self.x = x
             self.y = y
+        self.normalize()
 
     def __str__(self):  # zwraca "x/y" lub "x" dla y=1
         if self.y == 1:
@@ -26,47 +27,43 @@ class Frac:
 
     def __add__(self, other):  # frac1 + frac2
         if self.y != other.y:
-            return Frac(self.x * other.y + other.x * self.y, self.y * other.y).normalize()
-        return Frac(self.x + other.x, self.y).normalize()
+            return Frac(self.x * other.y + other.x * self.y, self.y * other.y)
+        return Frac(self.x + other.x, self.y)
 
     def __radd__(self, value):
         if isinstance(value, float):
             return self + Frac(float.as_integer_ratio(value)[0], float.as_integer_ratio(value)[1])
         if self.x == 0:
-            return Frac(value * self.y, self.y).normalize()
-        return Frac(self.x + (value * self.y), self.y).normalize()
+            return Frac(value * self.y, self.y)
+        return Frac(self.x + (value * self.y), self.y)
 
     def __sub__(self, other):  # frac1 - frac2
         if self.y != other.y:
-            return Frac(self.x * other.y - other.x * self.y, self.y * other.y).normalize()
-        return Frac(self.x - other.x, self.y).normalize()
+            return Frac(self.x * other.y - other.x * self.y, self.y * other.y)
+        return Frac(self.x - other.x, self.y)
 
     def __rsub__(self, other):  # int-frac
         if isinstance(other, float):
             return Frac(float.as_integer_ratio(other)[0], float.as_integer_ratio(other)[1]) - self
-        return Frac((self.y * other) - self.x, self.y).normalize()
+        return Frac((self.y * other) - self.x, self.y)
 
     def __mul__(self, other):
-        self.normalize()  # frac1 * frac2
-        other.normalize()
-        return Frac(self.x * other.x, self.y * other.y).normalize()
+        return Frac(self.x * other.x, self.y * other.y)
 
     def __rmul__(self, other):  # int*frac
         if isinstance(other, float):
             return self * Frac(float.as_integer_ratio(other)[0], float.as_integer_ratio(other)[1])
-        return Frac(self.x * other, self.y).normalize()
+        return Frac(self.x * other, self.y)
 
     def __truediv__(self, other):
-        self.normalize()  # frac1 * frac2
-        other.normalize()
-        return Frac(self.x * other.y, self.y * other.x).normalize()  # frac1 / frac2
+        return Frac(self.x * other.y, self.y * other.x) # frac1 / frac2
 
     def __rtruediv__(self, other):  # int/frac
         if self.x == 0:
             raise ValueError("Denominator cannot be 0")
         if isinstance(other, float):
             return Frac(float.as_integer_ratio(other)[0], float.as_integer_ratio(other)[1]) / self
-        return Frac(other * self.y, self.x).normalize()
+        return Frac(other * self.y, self.x)
 
     # operatory jednoargumentowe
     def __pos__(self):  # +frac = (+1)*frac
