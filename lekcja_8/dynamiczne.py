@@ -14,9 +14,8 @@ def P_rek(i, j):
 
 
 def P_dyn(i, j):
-    for key in values.keys():
-        if key == (i, j):
-            return values.get(key)
+    if (i, j) in values:
+        return values[i, j]
     if i == 0 and j > 0:
         values[(i, j)] = 1.0
         return values.get((i, j))
