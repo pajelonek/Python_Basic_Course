@@ -119,9 +119,7 @@ class Node:
             raise TypeError("Other must be a Node")
 
     def set_key(self, other):
-        if not self.has_key():
-            self.__key = other
-        elif isinstance(self.get_key(), other):
+        if not self.has_key() is None or isinstance(self.get_key(), other):
             self.__key = other
         else:
             raise TypeError("Key must stay the same")
@@ -140,7 +138,7 @@ class Node:
 
     def decrement_rank(self):
         if self.get_rank() is not None:
-            self.set_rank(self.get_rank() -1)
+            self.set_rank(self.get_rank() - 1)
         else:
             raise ValueError("Rank is None")
 
