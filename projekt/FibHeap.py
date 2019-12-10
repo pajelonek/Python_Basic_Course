@@ -1,9 +1,9 @@
 class FibHeap:
 
     def __init__(self):
-        self.min = Node()
-        self.first = Node()
-        self.last = Node()
+        self.min = None
+        self.first = None
+        self.last = None
         self.number_of_elements = 0
 
     def __str__(self):
@@ -26,7 +26,22 @@ class FibHeap:
         pass
 
     def push(self, x):
-        pass
+        new_node = Node().init_node(x)
+        if self.size() == 0:
+            self.first = new_node
+            self.last = new_node
+            self.min = new_node
+        elif self.size() == 1:
+            self.first.set_right_sibling(x)
+            new_node.set_left_sibling(self.first)
+            self.last = new_node
+        else:
+            self.last.set_right_sibling(new_node)
+            new_node.set_left_sibling(self.last)
+            self.last = new_node
+            self.__compare_with_min(new_node)
+
+        self.number_of_elements = self.number_of_elements + 1
 
     def pop(self):
         pass
@@ -52,13 +67,13 @@ class FibHeap:
 
 class Node:
     def __init__(self):
-        self.parent = None
-        self.children = None
-        self.left = None
-        self.right = None
-        self.rank = None
-        self.key = None
-        self.mark = None
+        self.__parent = None
+        self.__children = None
+        self.__left = None
+        self.__right = None
+        self.__rank = None
+        self.__key = None
+        self.__mark = None
 
     def is_not_empty(self):
         return self.parent is None and self.children is None and self.left is None \
@@ -72,25 +87,25 @@ class Node:
         return self.key
 
     def set_parent(self, other):
-        if isinstance(self, other):
+        if isinstance(other, Node):
             self.parent = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_children(self, other):
-        if isinstance(self, other):
+        if isinstance(other, Node):
             self.children = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_left_sibling(self, other):
-        if isinstance(self, other):
+        if isinstance(other, Node):
             self.left = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_right_sibling(self, other):
-        if isinstance(self, other):
+        if isinstance(other, Node):
             self.right = other
         else:
             raise TypeError("Other must be a Node")
@@ -99,7 +114,7 @@ class Node:
         if isinstance(self.key, other):
             self.key = other
         else:
-            raise TypeError("Other must be a Node")
+            raise TypeError("Key must stay the same")
 
     def set_rank(self, other):
         if isinstance(other, int):
@@ -122,3 +137,9 @@ class Node:
             self.mark = other
         else:
             raise TypeError("Type of mark is not correct")
+
+    def init_node(self, other):
+        self.set_key(other)
+        self.set_rank(0)
+        self.set_mark('N')
+        return self
