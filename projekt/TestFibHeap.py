@@ -7,6 +7,10 @@ class TestQueue(unittest.TestCase):
     def test_error_push(self):
         heap = FibHeap()
         heap.push(5)
+        heap.push(2)
+        heap.push(9)
+        heap.push(11)
+        heap.show()
 
     def test_error_pop(self):
         pass

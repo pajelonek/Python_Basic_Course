@@ -32,7 +32,7 @@ class FibHeap:
             self.last = new_node
             self.min = new_node
         elif self.size() == 1:
-            self.first.set_right_sibling(x)
+            self.first.set_right_sibling(new_node)
             new_node.set_left_sibling(self.first)
             self.last = new_node
         else:
@@ -63,6 +63,16 @@ class FibHeap:
 
     def is_empty(self):
         return not self.number_of_elements
+
+    def show(self):
+        if self.size() > 0:
+            iterator = self.first
+            while True:
+                print(str(iterator.get_key()) + " ")
+                if iterator.has_right_sibling():
+                    iterator = iterator.get_right_sibling()
+                else:
+                    break
 
 
 class Node:
@@ -117,6 +127,28 @@ class Node:
             self.__right = other
         else:
             raise TypeError("Other must be a Node")
+
+    def get_right_sibling(self):
+        if self.__right is not None:
+            return self.__right
+        else:
+            raise TypeError("No right sibling")
+
+    def has_right_sibling(self):
+        if self.__right is not None:
+            return True
+        return False
+
+    def has_left_sibling(self):
+        if self.__left is not None:
+            return True
+        return False
+
+    def get_left_sibling(self):
+        if self.__left is not None:
+            return self.__left
+        else:
+            raise TypeError("No left sibling")
 
     def set_key(self, other):
         if not self.has_key() is None or isinstance(self.get_key(), other):
