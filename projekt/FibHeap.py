@@ -11,7 +11,35 @@ class FibHeap:
 
     @staticmethod
     def __link_roots(firstnode, secondnode):
-        pass
+        if not firstnode.has_key() or not secondnode.has_key():
+            raise ValueError("Node cant be linked, has no key")
+
+        if firstnode.get_key() > secondnode.get_key():
+            container = secondnode
+            secondnode = firstnode
+            firstnode = container
+
+        if secondnode.has_left_sibling() and secondnode.has_right_sibling():
+            secondnode.get_left_sibling().set_right_sibling(secondnode.get_right_sibling())
+            secondnode.get_right_sibling().set_left_sibling(secondnode.get_left_sibling())
+            secondnode.set_left_sibling(None)
+            secondnode.set_right_sibling(None)
+
+        elif secondnode.has_left_sibling() and not secondnode.has_right_sibling():
+            secondnode.get_right_sibling().set_left_sibling(None)
+            firstnode = secondnode.get_right_sibling()
+            secondnode.set_right_sibling(None)
+
+        if not firstnode.has_children():
+            firstnode.set_children(secondnode)
+            secondnode.set_parent(firstnode)
+        else:
+            firstnode.get_children().set_left_sibling(secondnode)
+            secondnode.set_right_sibling(firstnode.get_children())
+            firstnode.set_children(secondnode)
+            secondnode.set_parent(firstnode)
+
+        firstnode.increment_rank()
 
     def __compare_with_min(self, node):
         pass
@@ -44,7 +72,13 @@ class FibHeap:
         self.number_of_elements = self.number_of_elements + 1
 
     def pop(self):
-        pass
+        if not self.is_empty():
+            lowest_value = self.min.get_key()
+            self.__cut_min()
+            self.__consolidate_heap()
+            return lowest_value
+        else:
+            print("No elements in heap")
 
     def top(self):
         if not self.is_empty() and self.min.is_not_empty():
@@ -110,11 +144,33 @@ class Node:
         else:
             raise TypeError("Other must be a Node")
 
+    def get_parent(self):
+        if self.__parent is not None:
+            return self.__parent
+        else:
+            raise TypeError("No parent in node")
+
+    def has_parent(self):
+        if self.get_parent() is not None:
+            return True
+        return False
+
     def set_children(self, other):
         if isinstance(other, Node):
             self.__children = other
         else:
             raise TypeError("Other must be a Node")
+
+    def get_children(self):
+        if self.__children is not None:
+            return self.__children
+        else:
+            raise TypeError("No children in node")
+
+    def has_children(self):
+        if self.get_children() is not None:
+            return True
+        return False
 
     def set_left_sibling(self, other):
         if isinstance(other, Node):
