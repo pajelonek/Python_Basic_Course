@@ -76,65 +76,77 @@ class Node:
         self.__mark = None
 
     def is_not_empty(self):
-        return self.parent is None and self.children is None and self.left is None \
-               and self.right is None and self.rank is None and self.key is None \
-               and self.mark is None
+        return self.__parent is None and self.__children is None and self.__left is None \
+               and self.__right is None and self.__rank is None and self.__key is None \
+               and self.__mark is None
 
-    def has_hey(self):
-        return self.key is not None
+    def has_key(self):
+        if self.get_key() is not None:
+            return True
+        return False
 
     def get_key(self):
-        return self.key
+        return self.__key
+
+    def get_mark(self):
+        return self.__mark
+
+    def get_rank(self):
+        return self.__rank
 
     def set_parent(self, other):
         if isinstance(other, Node):
-            self.parent = other
+            self.__parent = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_children(self, other):
         if isinstance(other, Node):
-            self.children = other
+            self.__children = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_left_sibling(self, other):
         if isinstance(other, Node):
-            self.left = other
+            self.__left = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_right_sibling(self, other):
         if isinstance(other, Node):
-            self.right = other
+            self.__right = other
         else:
             raise TypeError("Other must be a Node")
 
     def set_key(self, other):
-        if isinstance(self.key, other):
-            self.key = other
+        if not self.has_key():
+            self.__key = other
+        elif isinstance(self.get_key(), other):
+            self.__key = other
         else:
             raise TypeError("Key must stay the same")
 
     def set_rank(self, other):
-        if isinstance(other, int):
-            self.rank = other
+        if self.get_rank() is None or isinstance(other, int):
+            self.__rank = other
+        else:
+            raise TypeError("Key must stay the same")
 
     def increment_rank(self):
-        if self.rank is not None:
-            self.rank = self.rank + 1
+        if self.get_rank() is not None:
+            self.set_rank(self.get_rank() + 1)
         else:
             raise ValueError("Rank is None")
 
     def decrement_rank(self):
-        if self.rank is not None:
-            self.rank = self.rank - 1
+        if self.get_rank() is not None:
+            self.set_rank(self.get_rank() -1)
         else:
             raise ValueError("Rank is None")
 
     def set_mark(self, other):
-        if isinstance(self.mark, other):
-            self.mark = other
+        if self.get_mark() is None or isinstance(self.__mark, other):
+            self.__mark = other
         else:
             raise TypeError("Type of mark is not correct")
 
