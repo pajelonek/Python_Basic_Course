@@ -8,14 +8,14 @@ def solve1(a, b, c):
             y = (-c) / b
             return "Rozwiazaniem jest liczba " + str(y)
         else:
-            raise Exception('Brak rozwiazan')
+            return "Brak rozwiazan"
 
     if b == 0:
         if c != 0:
             y = (-c) / a
             return "Rozwiazaniem jest liczba " + str(y)
         else:
-            raise Exception('Brak rozwiazan')
+            return "Brak rozwiazan"
     return "Rozwiazaniem jest prosta spelniajaca rownanie: y = (" + str(-a) + "x" + str(-c) + ") / " + str(b)
 
 
