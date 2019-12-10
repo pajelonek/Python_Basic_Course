@@ -26,9 +26,16 @@ class Frac:
         return "Frac(" + str(self.x) + ", " + str(self.y) + ")"
 
     def __add__(self, other):  # frac1 + frac2
-        if self.y != other.y:
-            return Frac(self.x * other.y + other.x * self.y, self.y * other.y)
-        return Frac(self.x + other.x, self.y)
+        if isinstance(other, Frac):
+            if self.y != other.y:
+                return Frac(self.x * other.y + other.x * self.y, self.y * other.y)
+            return Frac(self.x + other.x, self.y)
+        else:
+            if isinstance(other, int):
+                return Frac(self.x + (self.y * other), self.y)
+            else:
+                return Frac(self.x * other.as_integer_ratio()[1] + other.as_integer_ratio()[0] * self.y,
+                            self.y * other.as_integer_ratio()[1])
 
     def __radd__(self, value):
         if isinstance(value, float):
@@ -38,9 +45,15 @@ class Frac:
         return Frac(self.x + (value * self.y), self.y)
 
     def __sub__(self, other):  # frac1 - frac2
-        if self.y != other.y:
-            return Frac(self.x * other.y - other.x * self.y, self.y * other.y)
-        return Frac(self.x - other.x, self.y)
+        if isinstance(other, Frac):
+            if self.y != other.y:
+                return Frac(self.x * other.y - other.x * self.y, self.y * other.y)
+            return Frac(self.x - other.x, self.y)
+        elif isinstance(other, int):
+            return Frac(self.x - (other * self.y), self.y)
+        else:
+            return Frac((self.x * float.as_integer_ratio(other)[1]) - (float.as_integer_ratio(other)[0] * self.y),
+                        self.y * float.as_integer_ratio(other)[1])
 
     def __rsub__(self, other):  # int-frac
         if isinstance(other, float):
@@ -48,7 +61,12 @@ class Frac:
         return Frac((self.y * other) - self.x, self.y)
 
     def __mul__(self, other):
-        return Frac(self.x * other.x, self.y * other.y)
+        if isinstance(other, Frac):
+            return Frac(self.x * other.x, self.y * other.y)
+        elif isinstance(other, int):
+            return Frac(self.x * other, self.y)
+        else:
+            return Frac(self.x * float.as_integer_ratio(other)[0], self.y * float.as_integer_ratio(other)[1])
 
     def __rmul__(self, other):  # int*frac
         if isinstance(other, float):
@@ -56,7 +74,7 @@ class Frac:
         return Frac(self.x * other, self.y)
 
     def __truediv__(self, other):
-        return Frac(self.x * other.y, self.y * other.x) # frac1 / frac2
+        return Frac(self.x * other.y, self.y * other.x)  # frac1 / frac2
 
     def __rtruediv__(self, other):  # int/frac
         if self.x == 0:
@@ -85,8 +103,6 @@ class Frac:
         return self.x == other.x and self.y == other.y
 
     def __float__(self):
-        if self.y == 0:
-            raise NameError("Y cannot be 0")
         return float(self.x / self.y)  # float(frac)
 
     def normalize(self):
