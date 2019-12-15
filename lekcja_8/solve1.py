@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 def solve1(a, b, c):
     """Rozwiązywanie równania liniowego a x + b y + c = 0."""
     if a == 0 and b == 0 and c == 0:
-        return "Rozwiazaniem jest zbior liczb rzeczywistych"
+        return "Rozwiazaniem jest kazda para liczb rzeczywistych"
     elif a == 0 and b == 0 and c != 0:
         return "Brak rozwiazan"
     elif a == 0 and b != 0 and c == 0:
