@@ -47,39 +47,47 @@ class FibHeap:
             node_children = self.min.get_children()
             node_children.set_parent(None)
             self.min.set_children(None)
-            if self.first.is_not_empty():
-                self.first = node_children
-                self.min = node_children
-                if self.first.get_right_sibling().is_not_empty():
-                    while node_children.has_right_sibling():
-                        node_children = node_children.get_right_sibling()
-                        node_children.set_parent(None)
-                    self.last = node_children
-                else:
-                    self.last = self.first
-            else:
-                self.min = self.first
-                while node_children.is_not_empty():
-                    self.last.set_right_sibling(node_children)
-                    node_children.set_left_sibling(self.last)
-                    self.last = node_children
-                    node_children.set_parent(None)
-                    node_children = node_children.get_right_sibling()
-
-            if self.first.is_not_empty():
-                iterator = self.first
-                while iterator.is_not_empty():
-                    self.__compare_with_min(iterator)
-                    iterator = iterator.get_right_sibling()
-            else:
-                self.min = None
+            self.add_children_to_heap(node_children)
+            self.find_new_min_in_heap()
         else:
-            if self.first.is_not_empty():
+            if self.first is not None:
                 self.min = self.first
-                iterator = self.first
-                while iterator.is_not_empty():
-                    self.__compare_with_min(iterator)
-                    iterator = iterator.get_right_sibling()
+                self.find_new_min_in_heap()
+
+    def add_children_to_heap(self, children):
+        if self.first is None:
+            self.add_children_as_new_heap(children)
+        else:
+            self.add_children_as_end(children)
+
+    def add_children_as_new_heap(self, children):
+        self.first = children
+        self.min = children
+        if self.first.get_right_sibling().is_not_empty():
+            while children.has_right_sibling():
+                node_children = children.get_right_sibling()
+                node_children.set_parent(None)
+            self.last = children
+        else:
+            self.last = self.first
+
+    def add_children_as_end(self, children):
+        self.min = self.first
+        while children.is_not_empty():
+            self.last.set_right_sibling(children)
+            children.set_left_sibling(self.last)
+            self.last = children
+            children.set_parent(None)
+            children = children.get_right_sibling()
+
+    def find_new_min_in_heap(self):
+        if self.first.is_not_empty():
+            iterator = self.first
+            while iterator.is_not_empty():
+                self.__compare_with_min(iterator)
+                iterator = iterator.get_right_sibling()
+        else:
+            self.min = None
 
     @staticmethod
     def cut_node_x_node(node_to_cut):
@@ -90,8 +98,8 @@ class FibHeap:
 
     def cut_x_node(self, node_to_cut):
         node_to_cut.get_right_sibling().set_left_sibling(None)
-        self.first = self.min.get_right_sibling()
-        node_to_cut.min.set_right_sibling(None)
+        self.first = node_to_cut.get_right_sibling()
+        node_to_cut.set_right_sibling(None)
 
     def cut_node_x(self, node_to_cut):
         node_to_cut.get_left_sibling().set_right_sibling(None)
