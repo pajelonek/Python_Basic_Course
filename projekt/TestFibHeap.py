@@ -6,11 +6,15 @@ class TestQueue(unittest.TestCase):
 
     def test_error_push(self):
         heap = FibHeap()
+        self.assertEqual(heap.show_main_nodes(), "")
         heap.push(5)
+        self.assertEqual(heap.show_main_nodes(), "5 ")
         heap.push(2)
+        self.assertEqual(heap.show_main_nodes(), "5 2 ")
         heap.push(9)
+        self.assertEqual(heap.show_main_nodes(), "5 2 9 ")
         heap.push(11)
-        heap.show()
+        self.assertEqual(heap.show_main_nodes(), "5 2 9 11 ")
 
     def test_error_pop(self):
         pass
@@ -23,4 +27,4 @@ class TestQueue(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()  # uruchamia wszystkie testy
+    unittest.main()
