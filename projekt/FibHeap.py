@@ -15,24 +15,7 @@ class FibHeap:
 
         firstnode, secondnode = FibHeap.__set_first_as_lower(firstnode, secondnode)
 
-        # case : node - X - node
-        if secondnode.has_left_sibling() and secondnode.has_right_sibling():
-            secondnode.get_left_sibling().set_right_sibling(secondnode.get_right_sibling())
-            secondnode.get_right_sibling().set_left_sibling(secondnode.get_left_sibling())
-            secondnode.set_left_sibling(None)
-            secondnode.set_right_sibling(None)
-
-        # case : node - X
-        elif secondnode.has_left_sibling() and not secondnode.has_right_sibling():
-            secondnode.get_right_sibling().set_left_sibling(None)
-            self.first = secondnode.get_right_sibling()
-            secondnode.set_right_sibling(None)
-
-        # case : X - node
-        elif not secondnode.has_left_sibling() and secondnode.has_right_sibling():
-            secondnode.get_left_sibling().set_right_sibling(None)
-            self.last = secondnode.get_left_sibling()
-            secondnode.set_left_sibling(None)
+        self.cut_node_from_heap(secondnode)
 
         if firstnode.has_children():
             firstnode.get_children().set_left_sibling(secondnode)
@@ -58,7 +41,39 @@ class FibHeap:
     def __cut_min(self):
         pass
 
-    def __consolidate_heap(self):
+    @staticmethod
+    def cut_node_x_node(node_to_cut):
+        node_to_cut.get_left_sibling().set_right_sibling(node_to_cut.get_right_sibling())
+        node_to_cut.get_right_sibling().set_left_sibling(node_to_cut.get_left_sibling())
+        node_to_cut.set_left_sibling(None)
+        node_to_cut.set_right_sibling(None)
+
+    def cut_x_node(self, node_to_cut):
+        node_to_cut.get_right_sibling().set_left_sibling(None)
+        self.first = self.min.get_right_sibling()
+        node_to_cut.min.set_right_sibling(None)
+
+    def cut_node_x(self, node_to_cut):
+        node_to_cut.get_left_sibling().set_right_sibling(None)
+        self.last = node_to_cut.get_left_sibling()
+        node_to_cut.set_left_sibling(None)
+
+    def cut_node_from_heap(self, node_to_cut):
+        # case : node - X - node
+        if node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
+            FibHeap.cut_node_x_node(node_to_cut)
+        # case : X - node
+        elif not node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
+            self.cut_x_node(self.min)
+        # case : node - X
+        elif node_to_cut.has_left_sibling() and not node_to_cut.has_right_sibling():
+            self.cut_node_x(node_to_cut)
+        # case : X
+        else:
+            self.first = None
+            self.last = None
+
+    def __consolidate_heap(self):  # TODO
         pass
 
     def push(self, x):
@@ -86,7 +101,7 @@ class FibHeap:
         if not self.is_empty():
             lowest_value = self.min.get_key()
             self.__cut_min()
-            self.__consolidate_heap()
+            # self.__consolidate_heap()
             return lowest_value
         else:
             print("No elements in heap")
