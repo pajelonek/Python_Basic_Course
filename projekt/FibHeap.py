@@ -6,7 +6,7 @@ class FibHeap:
         self.last = None
         self.number_of_elements = 0
 
-    def __str__(self):
+    def __str__(self):  # TODO
         pass
 
     @staticmethod
@@ -89,10 +89,10 @@ class FibHeap:
     def size(self):
         return self.number_of_elements
 
-    def decrease_key(self, old_key, new_key):
+    def decrease_key(self, old_key, new_key):  # TODO
         pass
 
-    def remove(self, key):
+    def remove(self, key):  # TODO
         pass
 
     def is_empty(self):
