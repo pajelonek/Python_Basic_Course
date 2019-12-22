@@ -207,7 +207,7 @@ class Node:
         return self.__rank
 
     def set_parent(self, other):
-        if isinstance(other, Node) and other is None:
+        if isinstance(other, Node) or other is None:
             self.__parent = other
         else:
             raise TypeError("Other must be a Node or None")
@@ -224,7 +224,7 @@ class Node:
         return False
 
     def set_children(self, other):
-        if isinstance(other, Node) and other is None:
+        if isinstance(other, Node) or other is None:
             self.__children = other
         else:
             raise TypeError("Other must be a Node or None")
@@ -241,13 +241,13 @@ class Node:
         return False
 
     def set_left_sibling(self, other):
-        if isinstance(other, Node) and other is None:
+        if isinstance(other, Node) or other is None:
             self.__left = other
         else:
             raise TypeError("Other must be a Node or None")
 
     def set_right_sibling(self, other):
-        if isinstance(other, Node) and other is None:
+        if isinstance(other, Node) or other is None:
             self.__right = other
         else:
             raise TypeError("Other must be a Node or None")
