@@ -1,3 +1,6 @@
+import cmath
+
+
 class FibHeap:
 
     def __init__(self):
@@ -31,7 +34,7 @@ class FibHeap:
             container = secondnode
             secondnode = firstnode
             firstnode = container
-            return firstnode, secondnode
+        return firstnode, secondnode
 
     def __compare_with_min(self, node):
         if self.min.has_key() and node.has_key():
@@ -39,7 +42,6 @@ class FibHeap:
                 self.min = node
 
     def __cut_min(self):
-
         self.cut_node_from_heap(self.min)
         self.number_of_elements = self.number_of_elements - 1
 
@@ -112,7 +114,7 @@ class FibHeap:
             FibHeap.cut_node_x_node(node_to_cut)
         # case : X - node
         elif not node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
-            self.cut_x_node(self.min)
+            self.cut_x_node(node_to_cut)
         # case : node - X
         elif node_to_cut.has_left_sibling() and not node_to_cut.has_right_sibling():
             self.cut_node_x(node_to_cut)
@@ -121,8 +123,23 @@ class FibHeap:
             self.first = None
             self.last = None
 
-    def __consolidate_heap(self):  # TODO
-        pass
+    def __consolidate_heap(self):
+        if not self.is_empty():
+            size_of_array = int((((cmath.log(self.size())) / (cmath.log(2))) + 1).real)
+            table_of_array = [None] * size_of_array
+            iterator = self.first
+            while True:
+                if iterator is None:
+                    break
+                else:
+                    if table_of_array[iterator.get_rank()] is not None and iterator is not table_of_array[iterator.get_rank()]:
+                        index = iterator.get_rank()
+                        self.__link_roots(iterator, table_of_array[iterator.get_rank()])
+                        table_of_array[index] = None
+                        iterator = self.first
+                    else:
+                        table_of_array[iterator.get_rank()] = iterator
+                        iterator = iterator.get_right_sibling()
 
     def push(self, x):
         new_node = Node().init_node(x)
@@ -149,7 +166,7 @@ class FibHeap:
         if not self.is_empty():
             lowest_value = self.min.get_key()
             self.__cut_min()
-            # self.__consolidate_heap()
+            self.__consolidate_heap()
             return lowest_value
         else:
             print("No elements in heap")
