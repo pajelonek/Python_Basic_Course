@@ -61,24 +61,24 @@ class FibHeap:
     def __consolidate_heap(self):
         pass
 
-    def __find(self):  # TODO
-        pass
-
     def push(self, x):
         new_node = Node().init_node(x)
         if self.size() == 0:
             self.first = new_node
             self.last = new_node
             self.min = new_node
-        elif self.size() == 1:
-            self.first.set_right_sibling(new_node)
-            new_node.set_left_sibling(self.first)
-            self.last = new_node
         else:
-            self.last.set_right_sibling(new_node)
-            new_node.set_left_sibling(self.last)
+            if self.size() == 1:
+                self.first.set_right_sibling(new_node)
+                new_node.set_left_sibling(self.first)
+            else:
+                self.last.set_right_sibling(new_node)
+                new_node.set_left_sibling(self.last)
             self.last = new_node
             self.__compare_with_min(new_node)
+
+    def __find(self):  # TODO
+        pass
 
         self.number_of_elements = self.number_of_elements + 1
 
