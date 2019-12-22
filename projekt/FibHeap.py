@@ -148,7 +148,7 @@ class Node:
         if self.__parent is not None:
             return self.__parent
         else:
-            raise TypeError("No parent in node")
+            return None
 
     def has_parent(self):
         if self.get_parent() is not None:
@@ -165,7 +165,7 @@ class Node:
         if self.__children is not None:
             return self.__children
         else:
-            raise TypeError("No children in node")
+            return None
 
     def has_children(self):
         if self.get_children() is not None:
@@ -187,8 +187,7 @@ class Node:
     def get_right_sibling(self):
         if self.__right is not None:
             return self.__right
-        else:
-            raise TypeError("No right sibling")
+        return None
 
     def has_right_sibling(self):
         if self.__right is not None:
@@ -203,8 +202,7 @@ class Node:
     def get_left_sibling(self):
         if self.__left is not None:
             return self.__left
-        else:
-            raise TypeError("No left sibling")
+        return None
 
     def set_key(self, other):
         if not self.has_key() is None or isinstance(self.get_key(), other):
