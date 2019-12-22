@@ -98,15 +98,17 @@ class FibHeap:
     def is_empty(self):
         return not self.number_of_elements
 
-    def show(self):
+    def show_main_nodes(self):
+        tree = ""
         if self.size() > 0:
             iterator = self.first
             while True:
-                print(str(iterator.get_key()) + " ")
+                tree += str(iterator.get_key()) + " "
                 if iterator.has_right_sibling():
                     iterator = iterator.get_right_sibling()
                 else:
                     break
+        return tree
 
 
 class Node:
