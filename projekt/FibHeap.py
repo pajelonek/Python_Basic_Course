@@ -195,7 +195,7 @@ class Node:
         self.__key = None
         self.__mark = None
 
-    def is_not_empty(self):
+    def is_empty(self):
         return self.__parent is None and self.__children is None and self.__left is None \
                and self.__right is None and self.__rank is None and self.__key is None \
                and self.__mark is None
