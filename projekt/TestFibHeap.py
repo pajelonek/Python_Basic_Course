@@ -26,7 +26,12 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(heap.show_main_nodes(), "5 2 9 11 ")
 
     def test_error_pop(self):
-        pass
+        heap_test_pop = FibHeap()
+        heap_test_pop.push(5)
+        heap_test_pop.push(2)
+        heap_test_pop.push(9)
+        heap_test_pop.push(11)
+        self.assertEqual(heap_test_pop.pop(), 2)
 
     def test_error_is_empty(self):
         heap = FibHeap()

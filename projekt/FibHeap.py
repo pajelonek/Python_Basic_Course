@@ -36,7 +36,7 @@ class FibHeap:
     def __compare_with_min(self, node):
         if self.min.has_key() and node.has_key():
             if self.min.get_key() > node.get_key():
-                self.min.set_key(node)
+                self.min = node
 
     def __cut_min(self):
 
