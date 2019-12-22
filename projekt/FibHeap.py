@@ -83,7 +83,7 @@ class FibHeap:
     def find_new_min_in_heap(self):
         if self.first.is_not_empty():
             iterator = self.first
-            while iterator.is_not_empty():
+            while iterator is not None:
                 self.__compare_with_min(iterator)
                 iterator = iterator.get_right_sibling()
         else:
@@ -184,6 +184,21 @@ class FibHeap:
                     break
         return tree
 
+    def show_all_nodes(self):
+        tree = ""
+        if self.is_empty() is not True:
+            tree = FibHeap.print_all_nodes(self.first, tree)
+        return tree
+
+    @staticmethod
+    def print_all_nodes(node, tree):
+        tree += str(node.get_key()) + " "
+        if node.has_children():
+            tree = FibHeap.print_all_nodes(node.get_children(), tree)
+        if node.has_right_sibling():
+            tree = FibHeap.print_all_nodes(node.get_right_sibling(), tree)
+        return tree
+
 
 class Node:
     def __init__(self):
@@ -199,6 +214,11 @@ class Node:
         return self.__parent is None and self.__children is None and self.__left is None \
                and self.__right is None and self.__rank is None and self.__key is None \
                and self.__mark is None
+
+    def is_not_empty(self):
+        return self.__parent is not None or self.__children is not None or self.__left is not None \
+               or self.__right is not None or self.__rank is not None or self.__key is not None \
+               or self.__mark is not None
 
     def has_key(self):
         if self.get_key() is not None:
