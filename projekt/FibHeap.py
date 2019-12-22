@@ -39,7 +39,47 @@ class FibHeap:
                 self.min.set_key(node)
 
     def __cut_min(self):
-        pass
+
+        self.cut_node_from_heap(self.min)
+        self.number_of_elements = self.number_of_elements - 1
+
+        if self.min.has_children():
+            node_children = self.min.get_children()
+            node_children.set_parent(None)
+            self.min.set_children(None)
+            if self.first.is_not_empty():
+                self.first = node_children
+                self.min = node_children
+                if self.first.get_right_sibling().is_not_empty():
+                    while node_children.has_right_sibling():
+                        node_children = node_children.get_right_sibling()
+                        node_children.set_parent(None)
+                    self.last = node_children
+                else:
+                    self.last = self.first
+            else:
+                self.min = self.first
+                while node_children.is_not_empty():
+                    self.last.set_right_sibling(node_children)
+                    node_children.set_left_sibling(self.last)
+                    self.last = node_children
+                    node_children.set_parent(None)
+                    node_children = node_children.get_right_sibling()
+
+            if self.first.is_not_empty():
+                iterator = self.first
+                while iterator.is_not_empty():
+                    self.__compare_with_min(iterator)
+                    iterator = iterator.get_right_sibling()
+            else:
+                self.min = None
+        else:
+            if self.first.is_not_empty():
+                self.min = self.first
+                iterator = self.first
+                while iterator.is_not_empty():
+                    self.__compare_with_min(iterator)
+                    iterator = iterator.get_right_sibling()
 
     @staticmethod
     def cut_node_x_node(node_to_cut):
