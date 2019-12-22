@@ -9,40 +9,51 @@ class FibHeap:
     def __str__(self):  # TODO
         pass
 
-    @staticmethod
-    def __link_roots(firstnode, secondnode):
+    def __link_roots(self, firstnode, secondnode):
         if not firstnode.has_key() or not secondnode.has_key():
             raise ValueError("Node cant be linked, has no key")
 
-        if firstnode.get_key() > secondnode.get_key():
-            container = secondnode
-            secondnode = firstnode
-            firstnode = container
+        firstnode, secondnode = FibHeap.__set_first_as_lower(firstnode, secondnode)
 
+        # case : node - X - node
         if secondnode.has_left_sibling() and secondnode.has_right_sibling():
             secondnode.get_left_sibling().set_right_sibling(secondnode.get_right_sibling())
             secondnode.get_right_sibling().set_left_sibling(secondnode.get_left_sibling())
             secondnode.set_left_sibling(None)
             secondnode.set_right_sibling(None)
 
+        # case : node - X
         elif secondnode.has_left_sibling() and not secondnode.has_right_sibling():
             secondnode.get_right_sibling().set_left_sibling(None)
-            firstnode = secondnode.get_right_sibling()
+            self.first = secondnode.get_right_sibling()
             secondnode.set_right_sibling(None)
 
-        if not firstnode.has_children():
-            firstnode.set_children(secondnode)
-            secondnode.set_parent(firstnode)
-        else:
+        # case : X - node
+        elif not secondnode.has_left_sibling() and secondnode.has_right_sibling():
+            secondnode.get_left_sibling().set_right_sibling(None)
+            self.last = secondnode.get_left_sibling()
+            secondnode.set_left_sibling(None)
+
+        if firstnode.has_children():
             firstnode.get_children().set_left_sibling(secondnode)
             secondnode.set_right_sibling(firstnode.get_children())
-            firstnode.set_children(secondnode)
-            secondnode.set_parent(firstnode)
+        firstnode.set_children(secondnode)
+        secondnode.set_parent(firstnode)
 
         firstnode.increment_rank()
 
+    @staticmethod
+    def __set_first_as_lower(firstnode, secondnode):
+        if firstnode.get_key() > secondnode.get_key():
+            container = secondnode
+            secondnode = firstnode
+            firstnode = container
+            return firstnode, secondnode
+
     def __compare_with_min(self, node):
-        pass
+        if self.min.has_key() and node.has_key():
+            if self.min.get_key() > node.get_key():
+                self.min.set_key(node)
 
     def __cut_min(self):
         pass
@@ -50,7 +61,7 @@ class FibHeap:
     def __consolidate_heap(self):
         pass
 
-    def __find(self):
+    def __find(self):  # TODO
         pass
 
     def push(self, x):
