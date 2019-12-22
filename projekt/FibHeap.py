@@ -77,10 +77,10 @@ class FibHeap:
             self.last = new_node
             self.__compare_with_min(new_node)
 
+        self.number_of_elements = self.number_of_elements + 1
+
     def __find(self):  # TODO
         pass
-
-        self.number_of_elements = self.number_of_elements + 1
 
     def pop(self):
         if not self.is_empty():
