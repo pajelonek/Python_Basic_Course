@@ -125,7 +125,65 @@ class TestQueue(unittest.TestCase):
         heap_remove.remove(7)
         self.assertEqual(heap_remove.show_main_nodes(), "3 9 11 ")
         self.assertEqual(heap_remove.show_all_nodes(), "3 9 19 11 ")
-
+        heap_remove.push(12)
+        heap_remove.push(22)
+        heap_remove.push(6)
+        self.assertEqual(heap_remove.pop(), 3)
+        self.assertEqual(heap_remove.show_main_nodes(), "9 6 ")
+        self.assertEqual(heap_remove.show_all_nodes(), "9 11 12 19 6 22 ")
+        # 9       6
+        # 11 19   22
+        # 12
+        heap_remove.remove(11)
+        self.assertEqual(heap_remove.show_all_nodes(), "9 19 6 22 12 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "9 6 12 ")
+        # 9    6   12
+        # 19   22
+        heap_remove.push(14)
+        heap_remove.push(1)
+        heap_remove.push(30)
+        heap_remove.push(44)
+        heap_remove.push(66)
+        heap_remove.push(2)
+        self.assertEqual(heap_remove.pop(), 1)
+        self.assertEqual(heap_remove.show_all_nodes(), "6 12 30 44 14 9 19 22 2 66 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "6 2 ")
+        # 6                       2
+        # 12       9   22        66
+        # 30 14    19
+        # 44
+        self.assertEqual(heap_remove.pop(), 2)
+        self.assertEqual(heap_remove.show_all_nodes(), "6 12 30 44 14 9 19 22 66 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "6 66 ")
+        self.assertEqual(heap_remove.pop(), 6)
+        self.assertEqual(heap_remove.show_all_nodes(), "9 12 30 44 14 22 66 19 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "9 ")
+        self.assertEqual(heap_remove.pop(), 9)
+        self.assertEqual(heap_remove.show_all_nodes(), "12 30 44 14 22 66 19 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "12 22 19 ")
+        self.assertEqual(heap_remove.pop(), 12)
+        self.assertEqual(heap_remove.show_all_nodes(), "22 30 44 66 14 19 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "22 14 ")
+        self.assertEqual(heap_remove.pop(), 14)
+        self.assertEqual(heap_remove.show_all_nodes(), "22 30 44 66 19 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "22 19 ")
+        self.assertEqual(heap_remove.pop(), 19)
+        self.assertEqual(heap_remove.show_all_nodes(), "22 30 44 66 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "22 ")
+        self.assertEqual(heap_remove.pop(), 22)
+        self.assertEqual(heap_remove.show_all_nodes(), "30 44 66 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "30 66 ")
+        self.assertEqual(heap_remove.pop(), 30)
+        self.assertEqual(heap_remove.show_all_nodes(), "44 66 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "44 ")
+        self.assertEqual(heap_remove.pop(), 44)
+        self.assertEqual(heap_remove.show_all_nodes(), "66 ")
+        self.assertEqual(heap_remove.show_main_nodes(), "66 ")
+        self.assertEqual(heap_remove.pop(), 66)
+        self.assertEqual(heap_remove.show_all_nodes(), "")
+        self.assertEqual(heap_remove.show_main_nodes(), "")
+        self.assertEqual(heap_remove.is_empty(), True)
+        self.assertEqual(heap_remove.size(), 0)
 
 if __name__ == '__main__':
     unittest.main()
