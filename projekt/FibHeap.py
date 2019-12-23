@@ -233,7 +233,7 @@ class FibHeap:
     def size(self):
         return self.number_of_elements
 
-    def decrease_key(self, old_key, new_key):  # TODO
+    def decrease_key(self, old_key, new_key):
         if self.is_empty():
             raise ValueError("No nodes in heap")
         node_to_change = self.__find(old_key)
