@@ -91,6 +91,23 @@ class TestQueue(unittest.TestCase):
         heap.push(5)
         self.assertEqual(heap.is_empty(), False)
 
+    def test_error_is_decrease(self):
+        heap = FibHeap()
+        self.assertEqual(heap.is_empty(), True)
+        heap.push(5)
+        self.assertEqual(heap.is_empty(), False)
+        heap.decrease_key(5, 2)
+        self.assertEqual(heap.show_all_nodes(), "2 ")
+        heap.push(11)
+        heap.push(7)
+        heap.push(9)
+        heap.push(19)
+        heap.push(3)
+        self.assertEqual(heap.show_all_nodes(), "2 11 7 9 19 3 ")
+        self.assertEqual(heap.pop(), 2)
+        self.assertEqual(heap.show_all_nodes(), "7 9 19 11 3 ")
+        self.assertEqual(heap.show_main_nodes(), "7 3 ")
+
 
 if __name__ == '__main__':
     unittest.main()
