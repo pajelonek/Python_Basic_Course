@@ -234,7 +234,69 @@ class FibHeap:
         return self.number_of_elements
 
     def decrease_key(self, old_key, new_key):  # TODO
-        pass
+        if self.is_empty():
+            raise ValueError("No nodes in heap")
+        node_to_change = self.__find(old_key)
+        if not isinstance(node_to_change, Node):
+            warning("No nodes with given value in heap")
+            return False
+        node_to_change.set_key(new_key)
+        if node_to_change.has_parent() and node_to_change.get_parent().get_key() > node_to_change.get_key():
+            self.fix_violated_order(node_to_change)
+
+    def fix_violated_order(self, node):
+        parent = node.get_parent()
+        self.cut_node_from_heap(node)
+        node.set_mark('N')
+        self.meld_in_tree(node)
+        if parent.get_mark() is 'N' and parent.get_parent() is not None:
+            parent.set_mark('Y')
+        else:
+            while parent is not None:
+                if parent.get_mark() is 'N':
+                    break
+                elif parent.has_parent():
+                    self.cut_parent_from_heap(parent)
+                    parent.get_parent().decrement_rank()
+                    self.last.set_right_sibling(parent)
+                    parent.set_left_sibling(parent)
+                    parent.set_mark('N')
+                parent = parent.get_parent()
+            iterator = self.first
+            self.min = self.first
+            while iterator is not None:
+                self.__compare_with_min(iterator)
+                iterator = iterator.get_right_sibling()
+
+    def cut_parent_from_heap(self, parent):
+        if parent.has_left_sibling() and parent.has_right_sibling():
+            parent.get_left_sibling().set_right_parent(parent.get_right_sibling())
+            parent.get_right_sibling().set_left_parent(parent.get_left_sibling())
+            parent.set_left_sibling(None)
+            parent.set_right_sibling(None)
+        elif not parent.has_left_sibling() and parent.has_right_sibling():
+            parent.get_right_sibling().set_left_sibling(None)
+            parent.get_parent().set_children(parent.get_right_sibling())
+            parent.set_children(None)
+            parent.set_right_children(None)
+        elif parent.has_left_sibling() and not parent.has_right_sibling():
+            parent.get_left_sibling().set_right_sibling(None)
+            parent.set_left_sibling(None)
+        else:
+            parent.get_parent().set_children(None)
+            parent.set_parent(None)
+
+    def meld_in_tree(self, node):
+        if self.size() is 1:
+            self.first.set_right_sibling(node)
+            node.set_left_sibling(self.first)
+            self.last = node
+            self.__compare_with_min(node)
+        else:
+            self.last.set_right_sibling(node)
+            node.set_left_sibling(self.last)
+            self.last = node
+            self.__compare_with_min(node)
 
     def remove(self, key):  # TODO
         pass
