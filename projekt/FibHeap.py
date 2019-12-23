@@ -68,8 +68,8 @@ class FibHeap:
         self.min = children
         if self.first.get_right_sibling().is_not_empty():
             while children.has_right_sibling():
-                node_children = children.get_right_sibling()
-                node_children.set_parent(None)
+                children = children.get_right_sibling()
+                children.set_parent(None)
             self.last = children
         else:
             self.last = self.first
