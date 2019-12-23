@@ -462,6 +462,18 @@ class Node:
         else:
             raise TypeError("Type of mark is not correct")
 
+    def make_it(self, other):
+        if other is None:
+            self.__init__()
+        if isinstance(other, Node):
+                self.__parent = other.get_parent()
+                self.__children = other.get_children()
+                self.__left = other.get_left_sibling()
+                self.__right = other.get_right_sibling()
+                self.__rank = other.get_rank()
+                self.__key = other.get_key()
+                self.__mark = other.get_mark()
+
     def init_node(self, other):
         self.set_key(other)
         self.set_rank(0)
