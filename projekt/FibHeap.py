@@ -159,8 +159,24 @@ class FibHeap:
 
         self.number_of_elements = self.number_of_elements + 1
 
-    def __find(self):  # TODO
-        pass
+    def __find(self, value):
+        if self.is_empty() or self.min.get_key() > value:
+            return None
+        found_value = FibHeap.find_deeper(self.first, value)
+        return found_value
+
+    @staticmethod
+    def find_deeper(node, value):
+        if node.get_key() == value:
+            return node
+        if node.has_children():
+            node_or_none = FibHeap.find_deeper(node.get_children(), value)
+            if isinstance(node_or_none, Node):
+                return node_or_none
+        if node.has_right_sibling():
+            node_or_none = FibHeap.find_deeper(node.get_right_sibling(), value)
+            if isinstance(node_or_none, Node):
+                return node_or_none
 
     def pop(self):
         if not self.is_empty():
