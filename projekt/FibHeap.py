@@ -76,7 +76,7 @@ class FibHeap:
 
     def add_children_as_end(self, children):
         self.min = self.first
-        while children.is_not_empty():
+        while children is not None:
             self.last.set_right_sibling(children)
             children.set_left_sibling(self.last)
             self.last = children
@@ -312,6 +312,7 @@ class FibHeap:
             node_to_remove.make_it(None)
         else:
             if node_to_remove.has_parent():
+                node_to_remove.get_parent().decrement_rank()
                 self.cut_node_for_remove(node_to_remove)
                 if node_to_remove.has_children():
                     node_to_remove = node_to_remove.get_children()
