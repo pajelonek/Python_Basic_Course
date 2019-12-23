@@ -323,7 +323,12 @@ class FibHeap:
                             self.last = node_to_remove
                             node_to_remove.set_left_element(self.first)
                             self.first.set_right_sibling(self.last)
-                            self.__compare_with_min(node_to_remove)
+                        else:
+                            self.last.set_right_sibling(node_to_remove)
+                            node_to_remove.set_left_sibling(self.last)
+                            self.last = node_to_remove
+                            node_to_remove.set_parent(None)
+                        self.__compare_with_min(node_to_remove)
                         node_to_remove = node_to_remove.get_right_sibling()
             else:
                 if node_to_remove.has_left_sibling() and node_to_remove.has_right_sibling():
