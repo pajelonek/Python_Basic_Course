@@ -56,6 +56,8 @@ class FibHeap:
             if self.first is not None:
                 self.min = self.first
                 self.find_new_min_in_heap()
+            else:
+                self.min = None
 
     def add_children_to_heap(self, children):
         if self.first is None:
@@ -66,7 +68,7 @@ class FibHeap:
     def add_children_as_new_heap(self, children):
         self.first = children
         self.min = children
-        if self.first.get_right_sibling().is_not_empty():
+        if self.first.get_right_sibling() is not None:
             while children.has_right_sibling():
                 children = children.get_right_sibling()
                 children.set_parent(None)
@@ -369,7 +371,7 @@ class FibHeap:
                         children.set_parent(None)
                         children = children.get_right_sibling()
 
-        self.number_of_elements = self.number_of_elements + 1
+        self.number_of_elements = self.number_of_elements - 1
 
     def cut_node_for_remove(self, node_to_remove):
         if node_to_remove.has_left_sibling() and node_to_remove.has_right_sibling():
