@@ -185,5 +185,6 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(heap_remove.is_empty(), True)
         self.assertEqual(heap_remove.size(), 0)
 
+
 if __name__ == '__main__':
     unittest.main()
