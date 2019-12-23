@@ -299,7 +299,92 @@ class FibHeap:
             self.__compare_with_min(node)
 
     def remove(self, key):  # TODO
-        pass
+        if self.is_empty():
+            warning("No nodes in heap so can't remove one")
+            return False
+        node_to_remove = self.__find(key)
+        if not isinstance(node_to_remove, Node):
+            warning("No nodes with given value in heap")
+            return False
+        if self.size() is 1:
+            self.last = None
+            self.first = None
+            node_to_remove.make_it(None)
+        else:
+            if node_to_remove.has_parent():
+                self.cut_node_for_remove(node_to_remove)
+                if node_to_remove.has_children():
+                    node_to_remove = node_to_remove.get_children()
+                    node_to_remove.get_parent().set_children(None)
+                    node_to_remove.set_children(None)
+
+                    while node_to_remove is not None:
+                        if self.first is self.last:
+                            self.last = node_to_remove
+                            node_to_remove.set_left_element(self.first)
+                            self.first.set_right_sibling(self.last)
+                            self.__compare_with_min(node_to_remove)
+                        node_to_remove = node_to_remove.get_right_sibling()
+            else:
+                if node_to_remove.has_left_sibling() and node_to_remove.has_right_sibling():
+                    node_to_remove.get_left_sibling().set_right_sibling(node_to_remove.get_right_sibling())
+                    node_to_remove.get_right_sibling().set_left_sibling(node_to_remove.get_left_sibling())
+                    node_to_remove.set_left_sibling(None)
+                    node_to_remove.set_right_sibling(None)
+                elif not node_to_remove.has_left_sibling() and node_to_remove.has_right_sibling():
+                    node_to_remove.get_right_sibling().set_left_sibling(None)
+                    self.first = node_to_remove.get_right_sibling()
+                    node_to_remove.set_right_sibling(None)
+                elif node_to_remove.has_left_sibling() and not node_to_remove.has_right_sibling():
+                    node_to_remove.get_left_sibling().set_right_sibling(None)
+                    self.last = node_to_remove.get_left_sibling()
+                    node_to_remove.set_left_sibling(None)
+                else:
+                    self.last = None
+                    self.first = None
+
+                if node_to_remove.has_children():
+                    children = node_to_remove.get_children()
+                    if self.first is None:
+                        self.first = children
+                        children.set_parent(None)
+                        children = children.get_right_sibling()
+                    elif self.first is self.last:
+                        self.first.set_right_sibling(children)
+                        children.set_parent(None)
+                        children.set_left_sibling(self.first)
+                        self.last = children
+                        children = children.get_right_sibling()
+
+                    while children is not None:
+                        self.last.set_right_sibling(children)
+                        children.set_left_sibling(self.last)
+                        self.last = children
+                        children.set_parent(None)
+                        children = children.get_right_sibling()
+
+        self.number_of_elements = self.number_of_elements + 1
+
+    def cut_node_for_remove(self, node_to_remove):
+        if node_to_remove.has_left_sibling() and node_to_remove.has_right_sibling():
+            node_to_remove.get_left_sibling().set_right_sibling(node_to_remove.get_right_sibling())
+            node_to_remove.get_right_sibling().set_left_sibling(node_to_remove.get_left_sibling())
+            node_to_remove.set_left_sibling(None)
+            node_to_remove.set_right_sibling(None)
+            node_to_remove.set_parent(None)
+        elif node_to_remove.has_left_sibling() and not node_to_remove.has_right_sibling():
+            node_to_remove.get_left_sibling().set_right_sibling(None)
+            node_to_remove.set_left_sibling(None)
+            node_to_remove.set_parent(None)
+        elif not node_to_remove.has_left_sibling() and node_to_remove.has_right_sibling():
+            node_to_remove.get_right_sibling().set_left_sibling(None)
+            node_to_remove.get_parent().set_children(node_to_remove.get_right_sibling())
+            node_to_remove.set_right_sibling(None)
+            node_to_remove.set_parent(None)
+        else:
+            node_to_remove.get_parent().set_children(None)
+            node_to_remove.set_parent(None)
+
 
     def is_empty(self):
         return not self.number_of_elements
