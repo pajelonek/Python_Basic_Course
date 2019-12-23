@@ -108,7 +108,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(heap.show_all_nodes(), "7 9 19 11 3 ")
         self.assertEqual(heap.show_main_nodes(), "7 3 ")
 
-    def remove(self):
+    def test_error_is_remove(self):
         heap_remove = FibHeap()
         heap_remove.push(4)
         self.assertEqual(heap_remove.is_empty(), False)
@@ -124,7 +124,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(heap_remove.show_main_nodes(), "7 3 ")
         heap_remove.remove(7)
         self.assertEqual(heap_remove.show_main_nodes(), "3 9 11 ")
-        self.assertEqual(heap_remove.show_all_nodes(), "3 9 11 ")
+        self.assertEqual(heap_remove.show_all_nodes(), "3 9 19 11 ")
 
 
 if __name__ == '__main__':
