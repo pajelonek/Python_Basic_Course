@@ -19,7 +19,7 @@ class FibHeap:
 
         firstnode, secondnode = FibHeap.__set_first_as_lower(firstnode, secondnode)
 
-        self.cut_node_from_heap(secondnode)
+        self.cut_main_node_from_heap(secondnode)
 
         if firstnode.has_children():
             firstnode.get_children().set_left_sibling(secondnode)
@@ -43,7 +43,7 @@ class FibHeap:
                 self.min = node
 
     def __cut_min(self):
-        self.cut_node_from_heap(self.min)
+        self.cut_main_node_from_heap(self.min)
         self.number_of_elements = self.number_of_elements - 1
 
         if self.min.has_children():
@@ -93,36 +93,72 @@ class FibHeap:
             self.min = None
 
     @staticmethod
-    def cut_node_x_node(node_to_cut):
+    def cut_main_node_x_node(node_to_cut):
         node_to_cut.get_left_sibling().set_right_sibling(node_to_cut.get_right_sibling())
         node_to_cut.get_right_sibling().set_left_sibling(node_to_cut.get_left_sibling())
         node_to_cut.set_left_sibling(None)
         node_to_cut.set_right_sibling(None)
 
-    def cut_x_node(self, node_to_cut):
+    @staticmethod
+    def cut_node_x_node(node_to_cut):
+        node_to_cut.get_left_sibling().set_right_sibling(node_to_cut.get_right_sibling())
+        node_to_cut.get_right_sibling().set_left_sibling(node_to_cut.get_left_sibling())
+        node_to_cut.set_left_sibling(None)
+        node_to_cut.set_right_sibling(None)
+        node_to_cut.set_parent(None)
+
+    def cut_main_x_node(self, node_to_cut):
         node_to_cut.get_right_sibling().set_left_sibling(None)
         self.first = node_to_cut.get_right_sibling()
         node_to_cut.set_right_sibling(None)
 
-    def cut_node_x(self, node_to_cut):
+    def cut_x_node(self, node_to_cut):
+        node_to_cut.get_parent().decrement_rank()
+        node_to_cut.get_parent().set_children(node_to_cut.get_right_sibling())
+        node_to_cut.get_right_sibling().set_left_sibling(None)
+        node_to_cut.set_right_sibling(None)
+        node_to_cut.set_parent(None)
+
+    def cut_main_node_x(self, node_to_cut):
         node_to_cut.get_left_sibling().set_right_sibling(None)
         self.last = node_to_cut.get_left_sibling()
         node_to_cut.set_left_sibling(None)
 
-    def cut_node_from_heap(self, node_to_cut):
+    def cut_node_x(self, node_to_cut):
+        node_to_cut.get_parent().decrement_rank()
+        node_to_cut.get_left_sibling().set_right_sibling(None)
+        node_to_cut.set_left_sibling(None)
+        node_to_cut.set_parent(None)
+
+    def cut_main_node_from_heap(self, node_to_cut):
         # case : node - X - node
         if node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
-            FibHeap.cut_node_x_node(node_to_cut)
+            FibHeap.cut_main_node_x_node(node_to_cut)
         # case : X - node
         elif not node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
-            self.cut_x_node(node_to_cut)
+            self.cut_main_x_node(node_to_cut)
         # case : node - X
         elif node_to_cut.has_left_sibling() and not node_to_cut.has_right_sibling():
-            self.cut_node_x(node_to_cut)
+            self.cut_main_node_x(node_to_cut)
         # case : X
         else:
             self.first = None
             self.last = None
+
+    def cut_node_from_heap(self, node_to_cut):
+        if node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
+            FibHeap.cut_node_x_node(node_to_cut)
+            # case : X - node
+        elif not node_to_cut.has_left_sibling() and node_to_cut.has_right_sibling():
+            self.cut_x_node(node_to_cut)
+            # case : node - X
+        elif node_to_cut.has_left_sibling() and not node_to_cut.has_right_sibling():
+            self.cut_node_x(node_to_cut)
+            # case : X
+        else:
+            node_to_cut.get_parent().set_children(None)
+            node_to_cut.get_parent().decrement_rank()
+            node_to_cut.set_parent(None)
 
     def __consolidate_heap(self):
         if not self.is_empty():
