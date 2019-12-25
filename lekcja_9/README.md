@@ -24,14 +24,14 @@ class SingleList:
 
     def clear(self): pass     # czyszczenie listy
 ```
-##### ZADANIE 9.6 (BINARYTREE)
-Mamy drzewo binarne bez klasy BinarySearchTree. Napisać funkcję count_leafs(top), która liczy liście drzewa binarnego. Liście to węzły, które nie mają potomków. Można podać rozwiązanie rekurencyjne lub rozwiązanie iteracyjne, które jawnie korzysta ze stosu.
-```
+##### ZADANIE 9.7 (BINARYSEARCHTREE)
+Dla drzewa BST napisać funkcje znajdujące największy i najmniejszy element przechowywany w drzewie. Mamy łącze do korzenia, nie ma klasy BinarySearchTree. Drzewo BST nie jest modyfikowane, a zwracana jest znaleziona wartość (węzeł). 
+W przypadku pustego drzewa należy wyzwolić wyjątek ValueError.```
 Załóżmy, że drzewo binarne przechowuje liczby. Napisać funkcję calc_total(top), która podaje sumę liczb przechowywanych w drzewie.
+```
+def bst_max(top): pass
 
-def count_leafs(top): pass
-
-def count_total(top): pass
+def bst_min(top): pass
 ```
 ## Użyto
 
