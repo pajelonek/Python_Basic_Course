@@ -83,6 +83,7 @@ class SingleList:
                 self.length = self.length + other.length
             other.head = None
             other.tail = None
+            other.length = 0
         # Węzły z listy other są przepinane do listy self na jej koniec.
 
     def clear(self):  # czyszczenie listy
