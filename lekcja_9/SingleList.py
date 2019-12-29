@@ -72,13 +72,17 @@ class SingleList:
         return node
 
     def merge(self, other):  # klasy O(1)
-        if self.length == 0:
-            self = other
-        elif other.length != 0:
-            self.tail.next = other.head
-            self.tail = other.tail
-            self.length = self.length + other.length
-
+        if other.length is not 0:
+            if self.length == 0:
+                self.head = other.head
+                self.tail = other.tail
+                self.length = other.length
+            elif self.length is not 0:
+                self.tail.next = other.head
+                self.tail = other.tail
+                self.length = self.length + other.length
+            other.head = None
+            other.tail = None
         # Węzły z listy other są przepinane do listy self na jej koniec.
 
     def clear(self):  # czyszczenie listy
