@@ -2,34 +2,26 @@ import random
 
 
 class RandomQueue:
-    def __init__(self, size=10):
-        self.n = size + 1
-        self.items = self.n * [None]
-        self.head = 0
-        self.tail = 0
+    def __init__(self, size=5):
+        self.items = []
+        self.size = size
 
     def insert(self, item):
         if self.is_full():
             raise ValueError("Queue is full!")
-        else:
-            self.tail = (self.tail + 1) % self.n
-            self.items[self.tail] = item
+        self.items.append(item)
 
     def remove(self):
         if self.is_empty():
             raise ValueError("Queue is empty")
-        else:
-            x = random.randint(self.head, (self.tail-1))
-            return_element = self.items[x]
-            switch_variable = self.items[self.head]
-            self.items[self.head] = self.items[x]
-            self.items[x] = switch_variable
-            self.items[self.head] = None
-            self.head = (self.head + 1) % self.n
-        return return_element
+        index = random.randint(0, len(self.items) - 1)
+        element = self.items[index]
+        self.items[index] = self.items[-1]
+        del self.items[-1]
+        return element
 
     def is_empty(self):
-        return self.head == self.tail
+        return self.items is 0
 
     def is_full(self):
-        return (self.head + self.n - 1) % self.n == self.tail
+        return len(self.items) is self.size
