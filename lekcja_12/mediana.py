@@ -11,6 +11,7 @@ def sort(tab):
 
 
 def mediana_sort(L, left, right):
+    L = L[left:right+1]
     L = sort(L)
     if len(L) % 2 == 0:
         return (L[int((len(L) / 2) - 1)] + L[int((len(L) / 2))]) / 2
@@ -21,6 +22,10 @@ def main():
     print(mediana_sort([1, 2, 3, 4], 0, 3))
     print(mediana_sort([1, 2, 3], 0, 2))
     print(mediana_sort([1, 2, 3, 4, 5], 0, 4))
+
+    print(mediana_sort([1, 2, 3, 4], 0, 1))
+    print(mediana_sort([1, 2, 3], 0, 1))
+    print(mediana_sort([1, 2, 3, 4, 5], 0, 2))
 
 
 if __name__ == '__main__':
