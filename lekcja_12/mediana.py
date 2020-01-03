@@ -11,6 +11,8 @@ def sort(tab):
 
 
 def mediana_sort(L, left, right):
+    if left >= right:
+        raise ValueError("Pass correct range")
     L = L[left:right+1]
     L = sort(L)
     if len(L) % 2 == 0:
