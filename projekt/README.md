@@ -1,22 +1,26 @@
-## Fibonacci Heap[C++]
+## Fibonacci Heap[PYTHON]
 
-## Getting Started
-Fibonacci heap is a data structure for priority queue operations, consisting of a collection of heap-ordered trees. It has a better amortized running time than many other priority queue data structures including the binary heap and binomial heap.
+## Opis
+Kopiec Fibonacciego to struktura danych realizująca operacje kolejki priorytetowej, składająca się z kolekcji drzew z porządkiem kopcowym. Kopce te mają lepszy czas zamortyzowany, niż wiele innych implementacji kolejek priorytetowych, w tym kopce binarne i dwumianowe. Michael L. Friedman i Robert E. Tarjan odkryli kopce Fibonacciego w 1984 roku i opublikowali ich opis w czasopiśmie naukowym w 1987 roku. Nazwali je kopcami Fibonacciego w nawiązaniu do liczb Fibonacciego, które są używane do ich analizy.
+Dla kopców Fibonacciego operacja znalezienia minimum zajmuje czas stały (O(1)) w sensie zamortyzowanym, podobnie jak operacje wstawiania oraz zmniejszania klucza. Usuwanie elementu działa w czasie zamortyzowanym O(log n), gdzie n to rozmiar stosu. Oznacza to, że zaczynając od pustej struktury, dowolny ciąg a operacji wstawiania oraz zmniejszania kluczy i b operacji usunięć zajmie O(a + b log n) czasu (najgorszy przypadek), gdzie n to maksymalny rozmiar kopca. Taki sam ciąg operacji w kopcu dwumianowym miałby złożoność O((a + b) log n ) Możliwa jest także operacja łączenia dwóch kopców Fibonacciego w stałym czasie (zamortyzowanym).
 
-Average time complexity in big O notation:
-+ Insert		    Θ(1)
-+ Find-min		  Θ(1)
-+ Delete-min		Θ(log n)	 
-+ Decrease-key	Θ(1)	 
-+ Merge		      Θ(1)
+Średnia złożoność w notacji duże O:
++ Push		    Θ(1)
++ Top		  Θ(1)
++ Pop		Θ(log n)	 
++ Decrease-key	Θ(log n)	 
 
-See more: https://www.cs.princeton.edu/~wayne/teaching/fibonacci-heap.pdf
 
-## Prerequisites
-C++(any version)
+Dokumentacja: https://www.cs.princeton.edu/~wayne/teaching/fibonacci-heap.pdf
 
-## Versioning
-This is still a basic version i was told to do at my university. In a short amount of time(around April) I will improve this project by adding generics and deleting code smells.
+## Opis operacji
++ Push(x) - Do naszej kolejki priorytetowej wsadzamy nowego node'a z kluczem x.
++ Top() - Dostajemy wartosc minimum z kolejki nic nie zmienajac. 
++ Pop() - Zwracamy wartość minimum jednocześnie usuwając je z kolejki i przeprowadzając konsolidacje drzewa.
++ Decrease_key(stary_klucz, nowy_klucz): Zakładąc w tej implementacji, że wartości kluczy node'ów się nie powtarzając to zmieniamy wartość klucza 'stary klucz' na wartość 'nowy klucz'.
 
-## Author
+## Prerekwizyty
+Python 2.7
+
+## Autor
 Pawel Jelonek
