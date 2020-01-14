@@ -440,9 +440,7 @@ class Node:
                and self.__mark is None
 
     def has_key(self):
-        if self.get_key() is not None:
-            return True
-        return False
+        return self.get_key() is not None
 
     def get_key(self):
         return self.__key
@@ -460,15 +458,10 @@ class Node:
             raise TypeError("Other must be a Node or None")
 
     def get_parent(self):
-        if self.__parent is not None:
-            return self.__parent
-        else:
-            return None
+        return self.__parent
 
     def has_parent(self):
-        if self.get_parent() is not None:
-            return True
-        return False
+        return self.get_parent() is not None
 
     def set_children(self, other):
         if isinstance(other, Node) or other is None:
@@ -477,15 +470,10 @@ class Node:
             raise TypeError("Other must be a Node or None")
 
     def get_children(self):
-        if self.__children is not None:
-            return self.__children
-        else:
-            return None
+        return self.__children
 
     def has_children(self):
-        if self.get_children() is not None:
-            return True
-        return False
+        return self.get_children() is not None
 
     def set_left_sibling(self, other):
         if isinstance(other, Node) or other is None:
@@ -500,24 +488,17 @@ class Node:
             raise TypeError("Other must be a Node or None")
 
     def get_right_sibling(self):
-        if self.__right is not None:
-            return self.__right
-        return None
+        return self.__right
 
     def has_right_sibling(self):
-        if self.__right is not None:
-            return True
-        return False
+        return self.__right is not None
 
     def has_left_sibling(self):
-        if self.__left is not None:
-            return True
-        return False
+        return self.__left is not None
+
 
     def get_left_sibling(self):
-        if self.__left is not None:
-            return self.__left
-        return None
+        return self.__left
 
     def set_key(self, other):
         if not self.has_key() is None or isinstance(self.get_key(), other):
