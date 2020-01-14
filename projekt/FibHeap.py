@@ -311,7 +311,7 @@ class FibHeap:
         if self.size() is 1:
             self.last = None
             self.first = None
-            node_to_remove.make_it(None)
+            node_to_remove.copy_values(None)
         else:
             if node_to_remove.has_parent():
                 node_to_remove.get_parent().decrement_rank()
@@ -529,7 +529,7 @@ class Node:
         else:
             raise TypeError("Type of mark is not correct")
 
-    def make_it(self, other):
+    def copy_values(self, other):
         if other is None:
             self.__init__()
         if isinstance(other, Node):
