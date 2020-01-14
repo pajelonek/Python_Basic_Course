@@ -13,29 +13,29 @@ class FibHeap:
     def __str__(self):  # TODO
         pass
 
-    def __link_roots(self, firstnode, secondnode):
-        if not firstnode.has_key() or not secondnode.has_key():
+    def __link_roots(self, first_node, second_node):
+        if not first_node.has_key() or not second_node.has_key():
             raise ValueError("Node cant be linked, has no key")
 
-        firstnode, secondnode = FibHeap.__set_first_as_lower(firstnode, secondnode)
+        first_node, second_node = FibHeap.__set_first_as_lower(first_node, second_node)
 
-        self.cut_main_node_from_heap(secondnode)
+        self.cut_main_node_from_heap(second_node)
 
-        if firstnode.has_children():
-            firstnode.get_children().set_left_sibling(secondnode)
-            secondnode.set_right_sibling(firstnode.get_children())
-        firstnode.set_children(secondnode)
-        secondnode.set_parent(firstnode)
+        if first_node.has_children():
+            first_node.get_children().set_left_sibling(second_node)
+            second_node.set_right_sibling(first_node.get_children())
+        first_node.set_children(second_node)
+        second_node.set_parent(first_node)
 
-        firstnode.increment_rank()
+        first_node.increment_rank()
 
     @staticmethod
-    def __set_first_as_lower(firstnode, secondnode):
-        if firstnode.get_key() > secondnode.get_key():
-            container = secondnode
-            secondnode = firstnode
-            firstnode = container
-        return firstnode, secondnode
+    def __set_first_as_lower(first_node, second_node):
+        if first_node.get_key() > second_node.get_key():
+            container = second_node
+            second_node = first_node
+            first_node = container
+        return first_node, second_node
 
     def __compare_with_min(self, node):
         if self.min.has_key() and node.has_key():
@@ -171,8 +171,7 @@ class FibHeap:
                 if iterator is None:
                     break
                 else:
-                    if table_of_array[iterator.get_rank()] is not None and iterator is not table_of_array[
-                        iterator.get_rank()]:
+                    if table_of_array[iterator.get_rank()] is not None and iterator is not table_of_array[iterator.get_rank()]:
                         index = iterator.get_rank()
                         self.__link_roots(iterator, table_of_array[iterator.get_rank()])
                         table_of_array[index] = None
