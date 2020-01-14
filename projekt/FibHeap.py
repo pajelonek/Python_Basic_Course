@@ -180,8 +180,8 @@ class FibHeap:
                         table_of_array[iterator.get_rank()] = iterator
                         iterator = iterator.get_right_sibling()
 
-    def push(self, x):
-        new_node = Node().init_node(x)
+    def push(self, key):
+        new_node = Node().init_node(key)
         if self.size() == 0:
             self.first = new_node
             self.last = new_node
@@ -425,14 +425,17 @@ class FibHeap:
 
 
 class Node:
-    def __init__(self):
-        self.__parent = None
-        self.__children = None
-        self.__left = None
-        self.__right = None
-        self.__rank = None
-        self.__key = None
-        self.__mark = None
+    def __init__(self, parent=None, children=None, left=None, right=None, rank=0, key=None, mark='N'):
+        self.__parent = parent
+        self.__children = children
+        self.__left = left
+        self.__right = right
+        self.__rank = rank
+        self.__key = key
+        self.__mark = mark
+
+    def __repr__(self):
+        return 'Node(parent=%s, children=%s, left=%s, right=%s, rank=%s, key=%s, mark=%s)' % (self.__parent, self.__children, self.__left, self.__right, self.__rank, self.__key, self.__mark)
 
     def is_empty(self):
         return self.__parent is None and self.__children is None and self.__left is None \
@@ -541,8 +544,6 @@ class Node:
             self.__key = other.get_key()
             self.__mark = other.get_mark()
 
-    def init_node(self, other):
-        self.set_key(other)
-        self.set_rank(0)
-        self.set_mark('N')
+    def init_node(self, key):
+        self.__init__(key=key)
         return self
