@@ -171,7 +171,8 @@ class FibHeap:
                 if iterator is None:
                     break
                 else:
-                    if table_of_array[iterator.get_rank()] is not None and iterator is not table_of_array[iterator.get_rank()]:
+                    if table_of_array[iterator.get_rank()] is not None and iterator is not table_of_array[
+                        iterator.get_rank()]:
                         index = iterator.get_rank()
                         self.__link_roots(iterator, table_of_array[iterator.get_rank()])
                         table_of_array[index] = None
@@ -495,7 +496,6 @@ class Node:
 
     def has_left_sibling(self):
         return self.__left is not None
-
 
     def get_left_sibling(self):
         return self.__left
