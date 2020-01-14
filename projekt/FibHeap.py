@@ -86,7 +86,7 @@ class FibHeap:
             children = children.get_right_sibling()
 
     def find_new_min_in_heap(self):
-        if self.first.is_not_empty():
+        if not self.first.is_empty():
             iterator = self.first
             while iterator is not None:
                 self.__compare_with_min(iterator)
@@ -227,7 +227,7 @@ class FibHeap:
             print("No elements in heap")
 
     def top(self):
-        if not self.is_empty() and self.min.is_not_empty():
+        if not self.is_empty() and not self.min.is_empty():
             return self.min.get_key()
         else:
             raise ValueError("Cant get value from heap")
@@ -438,11 +438,6 @@ class Node:
         return self.__parent is None and self.__children is None and self.__left is None \
                and self.__right is None and self.__rank is None and self.__key is None \
                and self.__mark is None
-
-    def is_not_empty(self):
-        return self.__parent is not None or self.__children is not None or self.__left is not None \
-               or self.__right is not None or self.__rank is not None or self.__key is not None \
-               or self.__mark is not None
 
     def has_key(self):
         if self.get_key() is not None:
